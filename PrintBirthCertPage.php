@@ -76,7 +76,7 @@ window.print();
             </div>
           </div>
           <?php
-		  $query = mysqli_query("select  * from tblbirth where birthId = '$_SESSION[birthRegId]'") or die(mysqli_error());
+		  $query = mysqli_query($con, "select  * from tblbirth where birthId = '$_SESSION[birthRegId]'") or die(mysqli_error());
           $row = mysqli_fetch_array($query);
 
         ?>

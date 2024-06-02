@@ -28,7 +28,7 @@ if (!isset($_SESSION['email']))
 <body>
 <?php
 
-$querys = mysqli_query("delete from tbladmin where adminId='$_SESSION[adminId]'") or die(mysqli_error());
+$querys = mysqli_query($con, "delete from tbladmin where adminId='$_SESSION[adminId]'") or die(mysqli_error());
 if ($querys)
 {	
     

@@ -28,7 +28,7 @@ if (!isset($_SESSION['email']))
 <body>
 <?php
 
-$querys = mysqli_query("delete from tblbirth where birthId='$_SESSION[birthRegId]'") or die(mysqli_error());
+$querys = mysqli_query($con, "delete from tblbirth where birthId='$_SESSION[birthRegId]'") or die(mysqli_error());
 if ($querys)
 {	
     
