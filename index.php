@@ -1,39 +1,35 @@
-
 <?php
 
-error_reporting(0);
-include('dbcon.php');
+// error_reporting(0);
+require './dbcon.php';
 session_start();
 
-if(isset($_POST['login']))
-{
+if (isset($_POST['login'])) {
 
-$email=$_POST['email'];
-$password=$_POST['password'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
-	$result = mysqli_query($con,"SELECT * FROM tbladmin WHERE email = '$email' AND password = '$password'") or die(mysqli_error());
-							
-		$row = mysqli_fetch_array($result);
-		$numberOfRows = mysqli_num_rows($result);				
-		 if ($numberOfRows > 0) 
-     {
-              $_SESSION['email'] = $row['email'];
-              $_SESSION['username'] = $row['username'];
-              $_SESSION['role'] = $row['role'];
-              $_SESSION['RegCentre'] = $row['RegCentre'];
+  $result = mysqli_query($con, "SELECT * FROM tbladmin WHERE email = '$email' AND password = '$password'") or die(mysqli_error());
+
+  $row = mysqli_fetch_array($result);
+  echo json_encode($row);
+  $numberOfRows = mysqli_num_rows($result);
+  if ($numberOfRows > 0) {
+    $_SESSION['email'] = $row['email'];
+    $_SESSION['username'] = $row['username'];
+    $_SESSION['role'] = $row['role'];
+    $_SESSION['RegCentre'] = $row['RegCentre'];
 
 
-          echo "<script type = \"text/javascript\">
+    echo "<script type = \"text/javascript\">
                 alert(\"Login Successful.................\");
                 window.location = (\"AdminDashboard.php\")
                 </script>";
-                                } 
-              else 
-                 {
+  } else {
 
-                  echo "<script>alert('Invalid Login Credentials');</script>";
-                            
-                  }																
+    echo "<script>alert('Invalid Login Credentials');</script>";
+
+  }
 }
 
 ?>
@@ -46,7 +42,7 @@ $password=$_POST['password'];
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <?php include_once('title.php');?>
+  <?php include_once ('title.php'); ?>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -61,11 +57,15 @@ $password=$_POST['password'];
 </head>
 
 <body style="background-color:GreenYellow;">
-<center><h2><blink>BIRTH AND DEATH REGISTRATION MANAGEMENT SYSTEM</blink></h2></center>
+  <center>
+    <h2>
+      <blink>BIRTH AND DEATH REGISTRATION MANAGEMENT SYSTEM</blink>
+    </h2>
+  </center>
   <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper auth-page" >
-      <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one" >
-        <div class="row w-100" >
+    <div class="container-fluid page-body-wrapper full-page-wrapper auth-page">
+      <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
+        <div class="row w-100">
           <div class="col-lg-4 mx-auto">
             <div class="auto-form-wrapper">
               <form action="index.php" method="post">
@@ -83,7 +83,7 @@ $password=$_POST['password'];
                 <div class="form-group">
                   <label class="label">Password</label>
                   <div class="input-group">
-                    <input type="password" name = "password" class="form-control" placeholder="*********">
+                    <input type="password" name="password" class="form-control" placeholder="*********">
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -102,7 +102,7 @@ $password=$_POST['password'];
                   </div>
                   <a href="#" class="text-small forgot-password text-black">Forgot Password</a>
                 </div>
-                 <!-- <div class="form-group">
+                <!-- <div class="form-group">
                   <button class="btn btn-block g-login">
                      <img class="mr-3" src="images/file-icons/icon-google.svg" alt="">Log in with Google</button> 
                 </div>  -->
