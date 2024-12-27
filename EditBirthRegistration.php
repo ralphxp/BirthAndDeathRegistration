@@ -1,0 +1,355 @@
+
+
+<?php
+session_start();
+error_reporting(0);
+include('dbcon.php');
+
+$_SESSION['birthRegId'] = $_GET['birthRegId'];
+
+if (!isset($_SESSION['email']))
+{
+
+  echo "<script type = \"text/javascript\">
+  window.location = (\"index.php\");
+  </script>";
+
+}
+if (isset($_SESSION['RegCentre']))
+{
+
+$querys = mysqli_query($con, "select  * from tblcentre where centreId =".$_SESSION['RegCentre']."") or die(mysqli_error());
+$rows = mysqli_fetch_array($querys);
+$regCentre = $rows['centreName'];
+
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <?php include_once('title.php');?>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+  
+</head>
+
+<body>
+  <div class="container-scroller">
+
+  <?php include_once 'header.php';?>
+
+</div>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      
+<?php include_once 'sidebar.php';?>
+      
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row purchace-popup">
+            
+          </div>
+          
+
+          <?php include_once 'TopDash.php';?>
+
+
+
+          <div class="row">
+            <div class="col-lg-7 grid-margin stretch-card">
+             
+            </div>
+           
+          </div>
+          
+
+
+
+                          <?php
+
+                       $query = mysqli_query($con, "select  * from tblbirth where birthId = '$_SESSION[birthRegId]'") or die(mysqli_error());
+                       $row = mysqli_fetch_array($query);
+
+                          ?>
+
+
+
+
+          <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title"> UPDATE BIRTH REGISTRATION</h4>
+                  <form class="form-sample" method="post">
+                    <p class="card-description">
+                      Personal info
+                    </p>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">First Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" value="<?php echo $row['firstName']?>" name= 'firstName' required class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Last Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" value="<?php echo $row['lastName']?>" name= 'lastName' required class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Fathers Full Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" value="<?php echo $row['fathersName']?>" name= 'fathersName' required class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Mothers Full Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" value="<?php echo $row['mothersName']?>" name= 'mothersName' required class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Gender</label>
+                          <div class="col-sm-9">
+                            <select name="gender" required class="form-control">
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Date of Birth</label>
+                          <div class="col-sm-9">
+                            <input class="form-control" value="<?php echo $row['dateOfBirth']?>" required name="dob" type="date" placeholder="dd/mm/yyyy" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Genotype</label>
+                          <div class="col-sm-9">
+                            <select class="form-control" required name="genotype">
+                              <option value="AA" >AA</option>
+                              <option value="AS">AS</option>
+                              <option value="SS">SS</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Weight</label>
+                          <div class="col-sm-9">
+                            <input class="form-control" value="<?php echo $row['weight']?>" required name="weight" type="text" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <p class="card-description">
+                      Address
+                    </p> -->
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Birth Place(Town)</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="bPlace" value="<?php echo $row['birthPlace']?>" required class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">State</label>
+                          <div class="col-sm-9">
+                          <select name="state" class="form-control" >
+              <option value="Abuja FCT">Abuja FCT</option>
+              <option value="Abia">Abia</option>
+              <option value="Adamawa">Adamawa</option>
+              <option value="Akwa Ibom">Akwa Ibom</option>
+              <option value="Anambra">Anambra</option>
+              <option value="Bauchi">Bauchi</option>
+              <option value="Bayelsa">Bayelsa</option>
+              <option value="Benue">Benue</option>
+              <option value="Borno">Borno</option>
+              <option value="Cross River">Cross River</option>
+              <option value="Delta">Delta</option>
+              <option value="Ebonyi">Ebonyi</option>
+              <option value="Edo">Edo</option>
+              <option value="Ekiti">Ekiti</option>
+              <option value="Enugu">Enugu</option>
+              <option value="Gombe">Gombe</option>
+              <option value="Imo">Imo</option>
+              <option value="Jigawa">Jigawa</option>
+              <option value="Kaduna">Kaduna</option>
+              <option value="Kano">Kano</option>
+              <option value="Katsina">Katsina</option>
+              <option value="Kebbi">Kebbi</option>
+              <option value="Kogi">Kogi</option>
+              <option value="Kwara">Kwara</option>
+              <option value="Lagos">Lagos</option>
+              <option value="Nassarawa">Nassarawa</option>
+              <option value="Niger">Niger</option>
+              <option value="Ogun">Ogun</option>
+              <option value="Ondo">Ondo</option>
+              <option value="Osun">Osun</option>
+              <option value="Oyo">Oyo</option>
+              <option value="Plateau">Plateau</option>
+              <option value="Rivers">Rivers</option>
+              <option value="Sokoto">Sokoto</option>
+              <option value="Taraba">Taraba</option>
+              <option value="Yobe">Yobe</option>
+              <option value="Zamfara">Zamfara</option>
+            </select>                                                 
+            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Year of Birth:</label>
+                          <div class="col-sm-9">
+                            <input  type="date" value="<?php echo $row['yearOfBirth']?>" name = "yob" required class="form-control" placeholder="dd/mm/yyyy"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">LGA</label>
+                          <div class="col-sm-9">
+                            <input type="text" name = "lga" value="<?php echo $row['lga']?>" required class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Place of Issue</label>
+                          <div class="col-sm-9">
+                            <input type="text" readonly name="Placeissue" required value='<?php echo $regCentre;?>' class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Registration Centre</label>
+                          <div class="col-sm-9">
+                          <input type="text" name="regCentre" readonly value='<?php echo $regCentre;?>' required class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <input type="submit" name="btnSubmit" value="Update" class="btn btn-success mr-2"/>
+                        <!-- <button class="btn btn-light">Cancel</button> -->
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+       
+          <?php 
+               if (isset($_POST['btnSubmit'])) {
+//code for validation of fields goes here
+
+
+
+
+
+                                $firstName = $_POST['firstName'];
+                                $lastName = $_POST['lastName'];
+                                $fathersName = $_POST['fathersName'];
+                                $mothersName = $_POST['mothersName'];
+                                $gender = $_POST['gender'];
+                                $dob = $_POST['dob'];
+                                $genotype = $_POST['genotype'];
+                                $weight = $_POST['weight'];
+                                $bPlace = $_POST['bPlace'];
+                                $yob = $_POST['yob'];
+                                $state = $_POST['state'];
+                                $lga = $_POST['lga'];
+                                $Placeissue = $_POST['Placeissue'];
+                                $regCentre = $_POST['regCentre'];
+                                 $dateReg = date('Y-m-d');
+                            
+
+
+   $resultt = mysqli_query($con, "update tblbirth set certNo='".$row['certNo']."',firstName='$firstName',lastName='$lastName',fathersName='$fathersName',mothersName='$mothersName',gender='$gender',genotype='$genotype',weight='$weight',birthPlace='$bPlace',state='$state',lga='$lga',dateOfBirth='$dob',yearOfBirth='$yob',PlaceOfIssue='$Placeissue',regCentre='$regCentre',dateReg='$dateReg' where birthId = '$_SESSION[birthRegId]'") or die(mysqli_error());
+
+                       if($resultt){
+                                  
+
+                                 echo "   <script type='text/javascript'>
+                                                alert('Birth Registration Successfully Updated!');
+                                                window.location= 'BirthReports.php';
+                                            </script>";
+
+                                }
+                              }
+                            
+                            ?>
+
+
+       
+        <!-- partial:partials/_footer.html -->
+        <?php include_once('footer.php');?>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- plugins:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <script src="vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
